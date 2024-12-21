@@ -1,27 +1,51 @@
-version: '3.8'
+version: "3.9"
+
 services:
-  mongo:
-    image: mongo
-    container_name: mongo
-    ports:
-      - "27017:27017"
+
+  mysql:
+    build:
+      context: ./database
+      dockerfile: Dockerfile.database
+    restart: always
     environment:
-      MONGO_INITDB_DATABASE: pokemonDB
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "3306:3306"
     volumes:
-      - mongo-data:/data/db
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
+
   backend:
-    build: ./backend
-    container_name: backend
-    ports:
-      - "4000:4000"
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.backend
+    env_file: .env
     depends_on:
-      - mongo
+      - mysql
+    ports:
+      - "8000:8000"
+    networks:
+      - app_network
+
   frontend:
-    build: ./frontend
-    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    environment:
+      REACT_APP_BACKEND_URL: http://backend:8000
+    restart: always
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
+      - mysql
       - backend
+    networks:
+      - app_network
+
+networks:
+  app_network:
+
 volumes:
-  mongo-data:
+  mysql_data:

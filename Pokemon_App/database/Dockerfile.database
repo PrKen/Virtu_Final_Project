@@ -1,0 +1,7 @@
+FROM mysql:8
+
+# Copier le fichier SQL d'initialisation
+COPY init.sql /docker-entrypoint-initdb.d/
+
+# Activer le chargement des fichiers locaux
+CMD ["mysqld", "--local-infile=1"]

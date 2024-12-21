@@ -1,0 +1,25 @@
+# Étape 1 : Construire l'application React
+FROM node:16 AS build
+
+# Définir le répertoire de travail
+WORKDIR /app
+
+# Installer les dépendances
+COPY package.json package-lock.json ./
+RUN npm install
+
+# Copier le code source et construire l’application
+COPY . .
+RUN npm run build
+
+# Étape 2 : Servir avec Nginx
+FROM nginx:latest
+
+# Copier le build dans le dossier Nginx
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Exposer le port 80
+EXPOSE 80
+
+# Lancer Nginx
+CMD ["nginx", "-g", "daemon off;"]
