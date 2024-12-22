@@ -6,6 +6,10 @@ const pokemonRoutes = require('./routes/pokemonRoutes');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+const cors = require('cors');
+app.use(cors());
+
+
 // Middleware pour journaliser les requêtes
 app.use(morgan('dev')); // Niveau de log : dev (affiche les requêtes avec méthode, URL, et temps d'exécution)
 
