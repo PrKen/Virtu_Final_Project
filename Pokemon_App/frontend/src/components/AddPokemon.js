@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './AddPokemon.css';
 
 const AddPokemon = () => {
   const [pokemon, setPokemon] = useState({
@@ -34,7 +35,8 @@ const AddPokemon = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="add-pokemon-form" onSubmit={handleSubmit}>
+      <h2>Add a New Pokémon</h2>
       <input
         type="text"
         name="name"
@@ -75,7 +77,7 @@ const AddPokemon = () => {
         onChange={handleChange}
         required
       />
-      <button type="submit">Add Pokemon</button>
+      <button type="submit" className="btn-submit">Add Pokémon</button>
     </form>
   );
 };

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import './PokemonList.css';
 
 const PokemonList = () => {
   const [pokemon, setPokemon] = useState([]);
   const [error, setError] = useState(null);
 
-  // Récupère tous les Pokémon au chargement
   useEffect(() => {
     fetch('/api/pokemon')
       .then((res) => {
@@ -15,12 +15,11 @@ const PokemonList = () => {
       })
       .then(setPokemon)
       .catch((error) => {
-        console.error("Error fetching Pokémon:", error);
-        setError("Failed to fetch Pokémon data. Please try again later.");
+        console.error('Error fetching Pokémon:', error);
+        setError('Failed to fetch Pokémon data. Please try again later.');
       });
   }, []);
 
-  // Supprime un Pokémon par son ID
   const deletePokemon = async (id) => {
     try {
       const res = await fetch(`/api/pokemon/${id}`, {
@@ -29,29 +28,48 @@ const PokemonList = () => {
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
-      // Supprime le Pokémon localement après la suppression sur le backend
       setPokemon(pokemon.filter((p) => p.id !== id));
     } catch (error) {
-      console.error("Error deleting Pokémon:", error);
-      setError("Failed to delete Pokémon. Please try again later.");
+      console.error('Error deleting Pokémon:', error);
+      setError('Failed to delete Pokémon. Please try again later.');
     }
   };
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="error-message">{error}</div>;
   }
 
   return (
-    <div>
-      <h1>Pokemon List</h1>
-      <ul>
-        {pokemon.map((p) => (
-          <li key={p.id}>
-            {p.name} ({p.type}) - HP: {p.hp}, Attack: {p.attack}, Defense: {p.defense}
-            <button onClick={() => deletePokemon(p.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+    <div className="pokemon-list">
+      <h2>Pokémon List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>HP</th>
+            <th>Attack</th>
+            <th>Defense</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {pokemon.map((p) => (
+            <tr key={p.id}>
+              <td>{p.name}</td>
+              <td>{p.type}</td>
+              <td>{p.hp}</td>
+              <td>{p.attack}</td>
+              <td>{p.defense}</td>
+              <td>
+                <button className="btn-delete" onClick={() => deletePokemon(p.id)}>
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

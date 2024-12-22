@@ -1,12 +1,17 @@
 import React from 'react';
 import PokemonList from './components/PokemonList';
 import AddPokemon from './components/AddPokemon';
+import './App.css';
 
 const App = () => (
-  <div>
-    <h1>Pokemon Manager</h1>
-    <AddPokemon />
-    <PokemonList />
+  <div className="app">
+    <header>
+      <h1>Pokémon Manager</h1>
+    </header>
+    <main>
+      <AddPokemon />
+      <PokemonList />
+    </main>
   </div>
 );
 

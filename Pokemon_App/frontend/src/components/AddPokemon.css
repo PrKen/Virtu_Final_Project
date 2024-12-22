@@ -1,0 +1,30 @@
+.add-pokemon-form {
+    margin: 20px auto;
+    padding: 20px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .add-pokemon-form input,
+  .add-pokemon-form button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .add-pokemon-form .btn-submit {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .add-pokemon-form .btn-submit:hover {
+    background-color: #0056b3;
+  }
+  
