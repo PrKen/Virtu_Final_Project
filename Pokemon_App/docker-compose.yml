@@ -18,6 +18,7 @@ services:
     networks:
       - appnetwork
     depends_on:
+      - mysql
       - backend
   
   mysql:
