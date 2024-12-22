@@ -6,7 +6,7 @@ exports.getAllPokemon = async (req, res) => {
     res.json(rows || []); // Toujours retourner un tableau JSON
   } catch (error) {
     console.error("Error fetching Pokémon:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server Eeerror" });
   }
 };
 
