@@ -115,7 +115,6 @@ Pour accéder à la base de donnée MySQL, vous devez aller dans le contenur `my
   docker-compose logs mysql
   ```
 
----
 
 ## Support
 Si vous rencontrez des problèmes ou avez des questions contactez nous : bert@et.esiea.fr .
