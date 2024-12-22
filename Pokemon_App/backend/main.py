@@ -61,7 +61,7 @@ async def lifespan(app: FastAPI):
     print("Création de la table 'pokemons'...")
     create_table()
 
-    csv_path = os.getenv("POKEMON_CSV", "./database/pokemon_data.csv")
+    csv_path = os.getenv("POKEMON_CSV", "./data/pokemon_data.csv")
     if os.path.exists(csv_path):
         print(f"Importation des données depuis {csv_path}...")
         import_data(csv_path)
@@ -87,13 +87,13 @@ class Pokemon(BaseModel):
     ability1: Optional[str]
     ability2: Optional[str]
     ability3: Optional[str]
-    total: int
     hp: int
     atk: int
     def_: int
     sp_atk: int
     sp_def: int
     spe: int
+    total: int
 
 @app.get("/health")
 def health_check():
@@ -113,8 +113,8 @@ def get_pokemons(
 ):
     """Récupère une liste de Pokémon en fonction des filtres."""
     query = """
-        SELECT dexnum, name, generation, type1, type2, ability1, ability2, ability3, total,
-               hp, atk, def_, sp_atk, sp_def, spe
+        SELECT dexnum, name, generation, type1, type2, ability1, ability2, ability3, 
+               hp, atk, def_, sp_atk, sp_def, spe, total
         FROM pokemons WHERE 1=1
     """
     params = {}
@@ -139,10 +139,8 @@ def get_pokemons(
 def create_pokemon(pokemon: Pokemon):
     """Crée un nouveau Pokémon."""
     query = """
-        INSERT INTO pokemons (dexnum, name, generation, type1, type2, ability1, ability2, ability3,
-                              total, hp, atk, def_, sp_atk, sp_def, spe)
-        VALUES (:dexnum, :name, :generation, :type1, :type2, :ability1, :ability2, :ability3,
-                :total, :hp, :atk, :def_, :sp_atk, :sp_def, :spe)
+        INSERT INTO pokemons (dexnum, name, generation, type1, type2, ability1, ability2, ability3, hp, atk, def_, sp_atk, sp_def, spe, total)
+        VALUES (:dexnum, :name, :generation, :type1, :type2, :ability1, :ability2, :ability3, :hp, :atk, :def_, :sp_atk, :sp_def, :spe, :total)
     """
     try:
         with engine.connect() as conn:
@@ -187,7 +185,7 @@ def delete_pokemon(
 @app.post("/import")
 def import_pokemon_data():
     """Réimporte les données depuis le fichier CSV."""
-    csv_path = os.getenv("POKEMON_CSV", "pokemon_data.csv")
+    csv_path = os.getenv("POKEMON_CSV", "./data/pokemon_data.csv")
     if not os.path.exists(csv_path):
         raise HTTPException(status_code=400, detail=f"Fichier {csv_path} introuvable.")
     try:

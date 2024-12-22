@@ -1,4 +1,4 @@
-dexnum,name,generation,type1,type2,ability1,ability2,Ability 3,hp,atk,def,sp_atk,sp_def,spe,total
+dexnum,name,generation,type1,type2,ability1,ability2,ability3,hp,atk,def_,sp_atk,sp_def,spe,total
 0001,Bulbasaur,1,Grass,Poison,Overgrow,Chlorophyll,,45,49,49,65,65,45,318
 0002,Ivysaur,1,Grass,Poison,Overgrow,Chlorophyll,,60,62,63,80,80,60,405
 0003,Venusaur,1,Grass,Poison,Overgrow,Chlorophyll,,80,82,83,100,100,80,525

@@ -11,11 +11,11 @@ CREATE TABLE IF NOT EXISTS pokemons (
     ability1 VARCHAR(100),
     ability2 VARCHAR(100),
     ability3 VARCHAR(100),
-    total INT,
     hp INT,
     atk INT,
-    def INT,
+    def_ INT,
     sp_atk INT,
     sp_def INT,
-    spe INT
+    spe INT,
+    total INT,
 );

@@ -24,13 +24,13 @@ pokemon_table = Table(
     Column("ability1", String(100)),
     Column("ability2", String(100)),
     Column("ability3", String(100)),
-    Column("total", Integer),
     Column("hp", Integer),
     Column("atk", Integer),
     Column("def_", Integer),
     Column("sp_atk", Integer),
     Column("sp_def", Integer),
     Column("spe", Integer),
+    Column("total", Integer),
     UniqueConstraint("dexnum", name="uix_dexnum"),
 )
 
@@ -43,7 +43,7 @@ def create_table():
 def import_data(file_path):
     df = pd.read_csv(file_path)
     required_columns = {"dexnum", "name", "generation", "type1", "type2", "ability1",
-                        "ability2", "ability3", "total", "hp", "atk", "def", "sp_atk", "sp_def", "spe"}
+                        "ability2", "ability3", "hp", "atk", "def_", "sp_atk", "sp_def", "spe", "total"}
     if not required_columns.issubset(df.columns):
         raise ValueError(f"Le fichier CSV doit contenir les colonnes : {', '.join(required_columns)}")
 
@@ -59,13 +59,13 @@ def import_data(file_path):
                     ability1=row["ability1"],
                     ability2=row["ability2"],
                     ability3=row["ability3"],
-                    total=row["total"],
                     hp=row["hp"],
                     atk=row["atk"],
                     def_=row["def"],
                     sp_atk=row["sp_atk"],
                     sp_def=row["sp_def"],
                     spe=row["spe"],
+                    total=row["total"],
                 )
                 conn.execute(insert_query)
             except IntegrityError:
@@ -75,4 +75,4 @@ def import_data(file_path):
 if __name__ == "__main__":
     # Exemple d'utilisation
     create_table()
-    import_data("./database/pokemon_data.csv")
+    import_data("./data/pokemon_data.csv")

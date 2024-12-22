@@ -13,13 +13,13 @@ function App() {
     { name: "ability1", placeholder: "Ability 1" },
     { name: "ability2", placeholder: "Ability 2" },
     { name: "ability3", placeholder: "Ability 3" },
-    { name: "total", placeholder: "Total Stats" },
     { name: "hp", placeholder: "HP" },
     { name: "atk", placeholder: "Attack" },
-    { name: "def", placeholder: "Defense" },
+    { name: "def_", placeholder: "Defense" },
     { name: "sp_atk", placeholder: "Special Attack" },
     { name: "sp_def", placeholder: "Special Defense" },
     { name: "spe", placeholder: "Speed" },
+    { name: "total", placeholder: "Total Stats" },
   ];
   const [newPokemon, setNewPokemon] = useState({
       dexnum: "",
@@ -30,13 +30,13 @@ function App() {
       ability1: "",
       ability2: "",
       ability3: "",
-      total: "",
       hp: "",
       atk: "",
-      def: "",
+      def_: "",
       sp_atk: "",
       sp_def: "",
       spe: "",
+      total: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
